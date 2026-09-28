@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f0a04">
+  <meta name="robots" content="noindex">
+  <title>Admin · Griha Pravesam</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23b98631'/><text x='32' y='45' font-size='36' text-anchor='middle' fill='%236e1f10'>ॐ</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&family=Ramaraja&family=Suravaram&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/studio.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw-config.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="admin.html"><span class="om">ॐ</span><span><b>గృహప్రవేశం</b><small>Invitation studio</small></span></a>
+    <nav class="tabs">
+      <a href="poster.html">Poster</a>
+      <a href="config.html">Edit text</a>
+      <a href="admin.html" aria-current="page">Admin</a>
+      <a href="index.html" target="_blank" rel="noopener">View</a>
+    </nav>
+  </header>
+
+  <main class="wrap admin">
+    <!-- ============ Overview ============ -->
+    <section class="stats" id="stats" aria-label="Summary"></section>
+
+    <section class="panel event-card" id="eventCard" aria-label="Event"></section>
+
+    <!-- ============ Guest list ============ -->
+    <section class="panel">
+      <div class="list-head">
+        <div>
+          <h2>Guest invitations</h2>
+          <p class="lead" id="listLead">Every invitation you prepare on the Poster page shows up here.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn primary" id="addBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Add guests
+          </button>
+          <details class="menu">
+            <summary class="btn" aria-label="More actions">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </summary>
+            <div class="menu-list">
+              <button type="button" id="csvBtn">Export to Excel (CSV)</button>
+              <button type="button" id="backupBtn">Back up guest list (.json)</button>
+              <label>Restore / merge backup<input type="file" id="restoreFile" accept=".json,application/json" hidden></label>
+              <hr>
+              <button type="button" id="clearBtn" class="danger">Delete all guests…</button>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="q" placeholder="Search guests" aria-label="Search guests">
+        </label>
+        <div class="seg" role="group" aria-label="Language filter" id="fLang">
+          <button type="button" data-v="all" aria-pressed="true">All</button>
+          <button type="button" data-v="te" aria-pressed="false">తెలుగు</button>
+          <button type="button" data-v="en" aria-pressed="false">English</button>
+        </div>
+        <div class="seg" role="group" aria-label="Status filter" id="fStatus">
+          <button type="button" data-v="all" aria-pressed="true">Any</button>
+          <button type="button" data-v="sent" aria-pressed="false">Shared</button>
+          <button type="button" data-v="pending" aria-pressed="false">Not shared</button>
+        </div>
+        <select id="sort" aria-label="Sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="name">Name A–Z</option>
+          <option value="active">Recently shared</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table class="guests" id="table">
+          <thead>
+            <tr>
+              <th class="c-n">#</th>
+              <th class="c-qr">QR</th>
+              <th>Guest</th>
+              <th>Language</th>
+              <th>Prepared</th>
+              <th>Last shared</th>
+              <th>Status</th>
+              <th class="c-act"><span class="sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty" id="empty" hidden>
+          <div class="empty-om">ॐ</div>
+          <p><b>No invitations yet.</b><br>Make one on the <a href="poster.html">Poster</a> page, or add your guest list here.</p>
+        </div>
+      </div>
+      <p class="foot-note" id="footNote"></p>
+    </section>
+  </main>
+
+  <!-- ============ QR / detail dialog ============ -->
+  <dialog class="sheet" id="detail" aria-labelledby="dName">
+    <form method="dialog" class="sheet-close"><button aria-label="Close">×</button></form>
+    <div class="qr-big" id="dQr"></div>
+    <h3 id="dName"></h3>
+    <p class="d-meta" id="dMeta"></p>
+    <div class="link-box" id="dLink"></div>
+    <div class="btn-row">
+      <a class="btn primary span" id="dPoster">Open poster</a>
+      <button class="btn" id="dShare" type="button">Share poster</button>
+      <button class="btn" id="dCopy" type="button">Copy link</button>
+      <button class="btn" id="dQrPng" type="button">Download QR</button>
+      <a class="btn" id="dOpen" target="_blank" rel="noopener">Preview</a>
+    </div>
+    <label class="field"><span>Note <em>e.g. "Amma's side", "Office"</em></span>
+      <input type="text" id="dNote" placeholder="Add a note"></label>
+    <div class="d-log" id="dLog"></div>
+    <button class="btn ghost danger-text" id="dDelete" type="button">Remove this guest</button>
+  </dialog>
+
+  <!-- ============ Bulk add dialog ============ -->
+  <dialog class="sheet" id="addDlg" aria-labelledby="addTitle">
+    <form method="dialog" class="sheet-close"><button aria-label="Close">×</button></form>
+    <h3 id="addTitle">Add guests</h3>
+    <p class="lead">One family per line. Each gets a personal link and QR code straight away. You can make their posters later.</p>
+    <textarea id="addNames" rows="7" placeholder="Mr. Sudhakar and Family&#10;శ్రీ రామారావు గారి కుటుంబం&#10;Dr. Lakshmi and Family"></textarea>
+    <label class="field"><span>Language</span></label>
+    <div class="seg" role="group" aria-label="Language" id="addLang">
+      <button type="button" data-v="te" aria-pressed="true">తెలుగు</button>
+      <button type="button" data-v="en" aria-pressed="false">English</button>
+    </div>
+    <div class="btn-row"><button class="btn primary span" id="addGo" type="button">Add to guest list</button></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/art.js"></script>
+  <script src="assets/js/poster.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

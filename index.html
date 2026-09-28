@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="te" class="lang-te">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3a1407">
+  <title>Griha Pravesam · గృహప్రవేశం</title>
+  <meta name="description" content="You are invited to our Griha Pravesam — గృహప్రవేశ మహోత్సవం.">
+  <meta property="og:title" content="Griha Pravesam Invitation · గృహప్రవేశ ఆహ్వానం">
+  <meta property="og:description" content="Tap to open the door to your personal invitation.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23b98631'/><text x='32' y='45' font-size='36' text-anchor='middle' fill='%236e1f10'>ॐ</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&family=Ramaraja&family=Suravaram&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/invite.css">
+</head>
+<body>
+  <div class="veil" id="veil"><div class="diya"></div></div>
+
+  <!-- ============ The door ============ -->
+  <section class="door-stage" id="doorStage" aria-label="Entrance">
+    <div class="portal">
+      <div class="lintel"><div class="om-badge">ॐ</div></div>
+      <div class="toran" id="toran"></div>
+      <div class="jamb l"></div><div class="jamb r"></div>
+      <div class="doorway">
+        <div class="door l">
+          <div class="panel top arched"><div class="motif" data-art="kalash"></div></div>
+          <div class="panel mid"><div class="motif" data-art="lotus"></div></div>
+          <div class="panel"><div class="motif" data-art="lotus"></div></div>
+          <span class="knocker"></span>
+        </div>
+        <div class="door r">
+          <div class="panel top arched"><div class="motif" data-art="kalash"></div></div>
+          <div class="panel mid"><div class="motif" data-art="lotus"></div></div>
+          <div class="panel"><div class="motif" data-art="lotus"></div></div>
+          <span class="knocker"></span>
+        </div>
+      </div>
+      <div class="threshold"></div>
+    </div>
+    <div class="floor-diya l"></div><div class="floor-diya r"></div>
+
+    <div class="nameplate" role="dialog" aria-labelledby="guestName">
+      <div class="lotus" data-art="lotus-gold"></div>
+      <p class="welcome" data-t="welcome"></p>
+      <p class="dear" data-t="dear"></p>
+      <p class="guest" id="guestName"></p>
+      <div class="rule" data-art="flourish"></div>
+      <button class="diya-btn" id="openBtn" type="button">
+        <span class="diya-lamp" aria-hidden="true">
+          <span class="diya-glow"></span>
+          <span class="diya-flame"></span>
+          <svg class="diya-bowl" viewBox="0 0 120 60">
+            <defs>
+              <linearGradient id="diyaClay" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f3c566"/><stop offset=".5" stop-color="#c98a2c"/><stop offset="1" stop-color="#7f4d14"/>
+              </linearGradient>
+            </defs>
+            <path d="M6 18 Q60 30 100 16 Q118 12 116 20 Q108 52 58 56 Q14 54 6 18Z" fill="url(#diyaClay)" stroke="#6b3f10" stroke-width="1.5"/>
+            <path d="M14 24 Q58 36 104 22" stroke="#ffe7a8" stroke-width="2" fill="none" opacity=".7"/>
+            <circle cx="30" cy="38" r="3" fill="#b5332a"/><circle cx="58" cy="44" r="3" fill="#b5332a"/><circle cx="86" cy="38" r="3" fill="#b5332a"/>
+            <path d="M104 17 Q110 10 112 6" stroke="#4a2a0c" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="diya-sparks"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </span>
+        <span class="diya-text" data-t="lightDiya"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ The invitation card ============ -->
+  <main class="invite" id="invite">
+    <article class="card page" id="card">
+      <div class="art arch top" data-art="arch"></div>
+      <div class="art arch bot" data-art="arch-flip"></div>
+      <div class="art lamp o1" style="--d:1.0s"><div class="lamp-inner" data-art="lamp-long"></div></div>
+      <div class="art lamp i1" style="--d:1.2s"><div class="lamp-inner" data-art="lamp-short"></div></div>
+      <div class="art lamp i2" style="--d:1.3s"><div class="lamp-inner" data-art="lamp-short"></div></div>
+      <div class="art lamp o2" style="--d:1.1s"><div class="lamp-inner" data-art="lamp-long"></div></div>
+      <div class="art corner tl" data-art="corner-tl"></div>
+      <div class="art corner tr" data-art="corner-tr"></div>
+      <div class="art corner bl" data-art="corner-bl"></div>
+      <div class="art corner br" data-art="corner-br"></div>
+
+      <div class="content">
+       <div class="fit">
+        <p class="om" aria-hidden="true">ॐ</p>
+        <p class="guest-line rv" id="guestLine" style="--d:1.8s" hidden><span data-t="dear"></span><span class="guest-name" id="guestName2"></span></p>
+        <p class="caps top-line rv" style="--d:2.0s" data-t="topLine"></p>
+        <h1 class="title rv" style="--d:2.2s"><span data-t="title1"></span><span data-t="title2"></span></h1>
+        <p class="caps sub-line rv" style="--d:2.5s" data-t="subLine"></p>
+        <div class="flourish rv" style="--d:2.65s" data-art="flourish"></div>
+        <div class="date-row rv" style="--d:2.8s">
+          <span class="caps side" data-t="weekday"></span>
+          <span class="mid">
+            <span class="caps month" data-t="month"></span>
+            <span class="day" data-t="day"></span>
+            <span class="caps year" data-t="year"></span>
+          </span>
+          <span class="caps side" data-t="time"></span>
+        </div>
+        <p class="at rv" style="--d:3.0s" data-t="atLabel"></p>
+        <p class="caps address rv" style="--d:3.15s" data-t="address"></p>
+        <a class="addr-qr rv" style="--d:3.15s" id="addrQr" target="_blank" rel="noopener" hidden>
+          <span class="addr-qr-code" id="addrQrCode"></span>
+          <span class="addr-qr-cap" data-t="mapQrCaption"></span>
+        </a>
+        <p class="hosts rv" style="--d:3.35s"><span data-t="hostsLabel"></span><b data-t="hosts"></b></p>
+        <nav class="actions rv" style="--d:3.6s" aria-label="Invitation actions">
+          <a id="mapBtn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <span data-t="directions"></span></a>
+          <button id="calBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+            <span data-t="calendar"></span></button>
+          <button id="replayBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            <span data-t="replay"></span></button>
+          <button class="more-btn" id="scrollHint" type="button">
+            <span class="cd-dot" id="cdDot" aria-hidden="true" hidden></span>
+            <span id="moreLabel"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </nav>
+       </div>
+      </div>
+    </article>
+
+    <!-- ============ Page 2: countdown + order of the day ============ -->
+    <section class="page more-page" id="more" aria-label="Countdown and schedule">
+      <div class="art arch top" data-art="arch"></div>
+      <div class="art arch bot" data-art="arch-flip"></div>
+      <div class="art corner tl" data-art="corner-tl"></div>
+      <div class="art corner tr" data-art="corner-tr"></div>
+      <div class="art corner bl" data-art="corner-bl"></div>
+      <div class="art corner br" data-art="corner-br"></div>
+      <div class="content">
+       <div class="fit reveal">
+        <div class="m-block" id="cdBlock">
+          <p class="m-om" aria-hidden="true">ॐ</p>
+          <h2 class="m-title" data-t="countdownTitle"></h2>
+          <div class="cd-grid" id="cdGrid">
+            <div class="cd-tile"><b id="cdD">0</b><span data-t="unitDays"></span></div>
+            <div class="cd-tile"><b id="cdH">0</b><span data-t="unitHours"></span></div>
+            <div class="cd-tile"><b id="cdM">0</b><span data-t="unitMinutes"></span></div>
+            <div class="cd-tile"><b id="cdS">0</b><span data-t="unitSeconds"></span></div>
+          </div>
+          <p class="cd-msg" id="cdMsg" hidden></p>
+        </div>
+        <div class="m-block" id="schedBlock">
+          <div class="m-rule" data-art="flourish"></div>
+          <h2 class="m-title" data-t="scheduleTitle"></h2>
+          <ol class="timeline" id="timeline" data-edit="schedule"></ol>
+        </div>
+       </div>
+      </div>
+    </section>
+
+    <!-- ============ Page 3: blessings + language switch ============ -->
+    <section class="page more-page" id="blessPage" aria-label="Blessings">
+      <div class="art arch top" data-art="arch"></div>
+      <div class="art arch bot" data-art="arch-flip"></div>
+      <div class="art corner tl" data-art="corner-tl"></div>
+      <div class="art corner tr" data-art="corner-tr"></div>
+      <div class="art corner bl" data-art="corner-bl"></div>
+      <div class="art corner br" data-art="corner-br"></div>
+      <div class="content">
+       <div class="fit reveal">
+        <div class="m-block" id="blessBlock">
+          <p class="m-om" aria-hidden="true">ॐ</p>
+          <h2 class="m-title" data-t="blessingTitle"></h2>
+          <figure class="bless-photo" id="blessPhoto" data-edit="blessingPhoto" hidden><img alt=""></figure>
+          <div class="bless-quotes" id="blessQuotes" data-edit="blessings" aria-live="polite"></div>
+          <div class="bless-dots" id="blessDots" aria-hidden="true"></div>
+          <p class="bless-from" data-t="blessingFrom"></p>
+        </div>
+        <footer class="m-foot">
+          <div class="m-lotus" data-art="lotus-gold"></div>
+          <p><span data-t="hostsLabel"></span> · <b data-t="hosts"></b></p>
+          <button class="lang-btn" id="langBtn" type="button" aria-label="Read the invitation in the other language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
+            <span class="lang-opt" data-l="te">తెలుగు</span><span class="lang-sep" aria-hidden="true">·</span><span class="lang-opt" data-l="en">English</span>
+          </button>
+        </footer>
+       </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="music-btn" id="musicBtn" type="button" aria-pressed="false" aria-label="Music" hidden>
+    <svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    <svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/art.js"></script>
+  <script src="assets/js/music.js"></script>
+  <script src="assets/js/invite.js"></script>
+</body>
+</html>

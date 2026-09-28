@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f0a04">
+  <meta name="robots" content="noindex">
+  <title>Edit Invitation · Griha Pravesam</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23b98631'/><text x='32' y='45' font-size='36' text-anchor='middle' fill='%236e1f10'>ॐ</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&family=Ramaraja&family=Suravaram&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/studio.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw-config.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="poster.html"><span class="om">ॐ</span><span><b>గృహప్రవేశం</b><small>Invitation studio</small></span></a>
+    <nav class="tabs">
+      <a href="poster.html">Poster</a>
+      <a href="config.html" aria-current="page">Edit text</a>
+      <a href="admin.html">Admin</a>
+      <a href="index.html" target="_blank" rel="noopener">View</a>
+    </nav>
+  </header>
+
+  <main class="wrap grid editor">
+    <section class="min-w-0">
+      <!-- Section jump bar -->
+      <nav id="secNav" aria-label="Sections"
+           class="sticky top-[62px] z-[5] -mx-1 mb-4 flex gap-2 overflow-x-auto rounded-full bg-maroon-900/70 p-1.5 shadow-lift backdrop-blur-md [scrollbar-width:none]">
+        <a href="#datePanel" class="sec-link">Date</a>
+        <a href="#sec-text" class="sec-link">Text</a>
+        <a href="#sec-schedule" class="sec-link">Schedule</a>
+        <a href="#sec-blessings" class="sec-link">Blessings</a>
+        <a href="#sec-music" class="sec-link">Music &amp; look</a>
+        <a href="#sec-publish" class="sec-link">Publish</a>
+      </nav>
+
+      <!-- ============ Date ============ -->
+      <div class="panel scroll-mt-32" id="datePanel">
+        <h2>Date, time &amp; place</h2>
+        <p class="lead">Pick the ceremony date and time. The <b>weekday, month, day, year and time</b> on the card and poster update in both తెలుగు and English, and the countdown follows it. You can still change the wording below.</p>
+        <div class="two">
+          <label class="field"><span>Date</span><input type="date" id="evDate"></label>
+          <label class="field"><span>Time <em>muhurtham</em></span><input type="time" id="evTime" step="60"></label>
+        </div>
+        <div class="date-chip" id="dateChip" aria-live="polite"></div>
+        <div class="two">
+          <label class="field"><span>Duration <em>minutes</em></span><input type="number" min="15" step="15" id="evDuration"></label>
+          <label class="field"><span>Google Maps link</span><input type="url" id="evMap" placeholder="https://maps.app.goo.gl/…"></label>
+        </div>
+        <label class="field"><span>Site link <em>where this folder is hosted</em></span><input type="url" id="siteUrl" placeholder="https://yourname.github.io/GrihaPravesam/"></label>
+        <div class="note info">Guest QR codes open this link plus the guest's name. The map link is used by the <b>Directions</b> button and, if you turn it on under Venue &amp; hosts, by a QR code in place of the address. Leave the site link empty while you test on this computer.</div>
+      </div>
+
+      <!-- ============ Text ============ -->
+      <div class="panel scroll-mt-32" id="sec-text">
+        <h2>Invitation text</h2>
+        <p class="lead">Every word on the door, card and poster. Fill in both languages, then choose which one guests see first. <b>Tip:</b> tap any text in the preview to jump to its box.</p>
+
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="seg" role="group" aria-label="Editing language" id="editLang">
+            <button type="button" data-lang="te" aria-pressed="true">తెలుగు text</button>
+            <button type="button" data-lang="en" aria-pressed="false">English text</button>
+          </div>
+          <label class="flex items-center gap-2 text-[15px] text-ink-soft">
+            Guests see
+            <select id="defaultLang" class="!w-auto !px-3 !py-2 !text-base">
+              <option value="te">తెలుగు</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+        </div>
+
+        <form id="textForm" autocomplete="off" onsubmit="return false"></form>
+      </div>
+
+      <!-- ============ Schedule ============ -->
+      <div class="panel scroll-mt-32" id="sec-schedule">
+        <h2>Order of the day</h2>
+        <p class="lead">Shown as a timeline under the card. Add each part of the day with its time, in both languages. Leave the list empty to hide it.</p>
+        <ol id="schedList" class="m-0 list-none space-y-3 p-0"></ol>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button class="btn" id="schedAdd" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Add item
+          </button>
+          <button class="btn ghost" id="schedSort" type="button">Sort by time</button>
+        </div>
+      </div>
+
+      <!-- ============ Blessings ============ -->
+      <div class="panel scroll-mt-32" id="sec-blessings">
+        <h2>Blessings from the family</h2>
+        <p class="lead">A photo and a few short messages that gently rotate under the card. Write one message per line.</p>
+
+        <div class="grid gap-5">
+          <div class="flex flex-wrap items-center gap-5">
+            <label id="photoDrop" for="photoFile"
+                   class="group relative flex aspect-square w-36 flex-none cursor-pointer items-center justify-center overflow-hidden rounded-full bg-cream-200 text-center shadow-gold transition duration-300 ease-out hover:shadow-lift">
+              <img id="photoImg" alt="" class="absolute inset-0 h-full w-full object-cover" hidden>
+              <span id="photoEmpty" class="px-4 text-sm font-semibold leading-snug text-ink-soft">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-1 h-8 w-8 text-gold-500" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-8 8"/></svg>
+                Tap or drop a photo
+              </span>
+              <span class="absolute inset-x-0 bottom-0 bg-maroon-900/60 py-1.5 text-xs font-semibold text-gold-100 opacity-0 transition group-hover:opacity-100" id="photoChange" hidden>Change photo</span>
+            </label>
+            <input type="file" id="photoFile" accept="image/*" hidden>
+            <div class="min-w-[180px] flex-1">
+              <p class="m-0 text-[15px] leading-snug text-ink-soft">Optional: a family photo, or of the new home. It is shown in a gold ring and shrunk automatically to keep the invitation light.</p>
+              <button class="btn ghost danger-text mt-2 !min-h-[40px] !text-[15px]" id="photoRemove" type="button" hidden>Remove photo</button>
+            </div>
+          </div>
+
+          <div class="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
+            <div class="rounded-2xl bg-white/60 p-4 shadow-gold">
+              <p class="m-0 mb-1 text-xs font-bold uppercase tracking-[.16em] text-gold-500">తెలుగు</p>
+              <label class="field !mt-2"><span>Heading</span><input type="text" lang="te" data-key="blessingTitle" data-lang="te"></label>
+              <label class="field"><span>Messages <em>one per line</em></span><textarea rows="5" lang="te" data-key="blessings" data-lang="te"></textarea></label>
+              <label class="field"><span>Signed</span><input type="text" lang="te" data-key="blessingFrom" data-lang="te"></label>
+            </div>
+            <div class="rounded-2xl bg-white/60 p-4 shadow-gold">
+              <p class="m-0 mb-1 text-xs font-bold uppercase tracking-[.16em] text-gold-500">English</p>
+              <label class="field !mt-2"><span>Heading</span><input type="text" data-key="blessingTitle" data-lang="en"></label>
+              <label class="field"><span>Messages <em>one per line</em></span><textarea rows="5" data-key="blessings" data-lang="en"></textarea></label>
+              <label class="field"><span>Signed</span><input type="text" data-key="blessingFrom" data-lang="en"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ Music & look ============ -->
+      <div class="panel scroll-mt-32" id="sec-music">
+        <h2>Music &amp; poster look</h2>
+        <p class="lead">Soft music starts when the guest lights the diya, with a mute button on the card. The built-in tune is a veena-style melody in raga Mohanam, made in the browser, so no file is needed.</p>
+
+        <div class="toggle-field !mt-0">
+          <span class="toggle-text"><b>Play music when the door opens</b><small>Guests can mute it any time.</small></span>
+          <button type="button" class="switch" id="musicToggle" role="switch" aria-checked="true" aria-label="Play music"><span class="knob"></span></button>
+        </div>
+
+        <div id="musicOpts" class="mt-4 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
+          <label class="field !mt-0"><span>Music <em id="musicFound"></em></span>
+            <select id="musicUrl"><option value="">Built-in veena tune (raga Mohanam)</option></select></label>
+          <button class="btn !min-h-[50px]" id="musicTest" type="button">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="musicTestIcon"><path d="M8 5v14l11-7z"/></svg>
+            <span id="musicTestLabel">Listen</span>
+          </button>
+          <label class="field !mt-0 sm:col-span-2"><span>Volume <em id="volLabel">50%</em></span>
+            <input type="range" id="musicVol" min="0" max="100" step="5" class="w-full accent-gold-500"></label>
+        </div>
+        <p class="m-0 mt-3 text-sm text-ink-soft">The list shows the songs in the project's <code class="rounded bg-black/5 px-1.5 py-0.5">assets/audio</code> folder. To add one, copy the MP3 there and reload this page. On a hosted site, also add its file name to <code class="rounded bg-black/5 px-1.5 py-0.5">assets/audio/tracks.json</code>.</p>
+
+        <hr class="my-6 border-0 border-t border-dashed border-gold-500/40">
+        <label class="field !mt-0"><span>Default poster theme</span></label>
+        <div class="theme-grid" id="themeDefault" role="group" aria-label="Default poster theme"></div>
+      </div>
+
+      <!-- ============ Publish ============ -->
+      <div class="panel scroll-mt-32" id="sec-publish">
+        <h2>Publish</h2>
+        <p class="lead">Your edits are saved on <b>this device</b> as you type. To show them to guests, export <code>config.js</code>, replace the file in the project folder, and upload the folder again.</p>
+        <div class="status"><span class="dot" id="dot"></span><span id="statusText">Matches published config.js</span></div>
+        <div class="btn-row">
+          <button class="btn primary span" id="exportBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            Export config.js
+          </button>
+          <label class="btn" style="cursor:pointer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V9M7 14l5-5 5 5M5 3h14"/></svg>
+            Import
+            <input type="file" id="importFile" accept=".js,.json,application/json,text/javascript" hidden>
+          </label>
+          <button class="btn ghost" id="resetBtn" type="button">Discard edits</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sticky">
+      <div class="phone"><iframe id="preview" title="Live preview" src="index.html?preview=1&amp;nodoor=1"></iframe></div>
+      <label class="field" style="max-width:360px;margin:16px auto 0">
+        <span style="color:#d9bf8a">Preview as guest</span>
+        <input type="text" id="pvName" placeholder="Mr. Sudhakar and Family" value="Mr. Sudhakar and Family">
+      </label>
+      <div class="btn-row" style="max-width:360px;margin:12px auto 0">
+        <button class="btn" id="pvDoor" type="button">Show door</button>
+        <button class="btn" id="pvCard" type="button">Replay card</button>
+        <button class="btn span" id="pvMore" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          Scroll to details
+        </button>
+      </div>
+    </aside>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/art.js"></script>
+  <script src="assets/js/music.js"></script>
+  <script src="assets/js/poster.js"></script>
+  <script src="assets/js/studio-config.js"></script>
+</body>
+</html>
