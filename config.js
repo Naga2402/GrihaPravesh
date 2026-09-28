@@ -13,7 +13,7 @@
  */
 window.GP_CONFIG = {
   "lang": "te",
-  "siteUrl": "",
+  "siteUrl": "https://naga2402.github.io/GrihaPravesh/",
   "event": {
     "start": "2025-07-28T08:00",
     "durationMinutes": 180,
