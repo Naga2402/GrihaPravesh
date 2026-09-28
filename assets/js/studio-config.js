@@ -29,6 +29,7 @@
     ] },
     { legend: 'Poster', fields: [
       ['posterFor', 'Line above the guest name'], ['posterScan', 'Text under the QR code'], ['mapQrCaption', 'Text beside the map QR'],
+      ['posterTapQr', 'Poster page: “tap the QR” hint'], ['posterOpen', 'Poster page: open button'],
     ] },
     { legend: 'Buttons', cols: 'three', fields: [
       ['directions', 'Directions'], ['calendar', 'Calendar'], ['replay', 'Replay'],

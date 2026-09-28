@@ -150,6 +150,14 @@
     return u.href;
   }
 
+  /** The guest's poster page (card.html): their poster with a tappable QR. Same query as their link. */
+  function cardUrl(cfg, name, lang, theme) {
+    const g = new URL(guestUrl(cfg, name, lang, theme));
+    const u = new URL('card.html', g);
+    u.search = g.search;
+    return u.href;
+  }
+
   function isLocalAddress(url) {
     try {
       const h = new URL(url).hostname;
@@ -304,7 +312,7 @@
 
   window.GP = {
     DRAFT_KEY, clone, deepMerge, loadConfig, readDraft, saveDraft, clearDraft,
-    b64urlEncode, b64urlDecode, readGuest, baseUrl, guestUrl, isLocalAddress,
+    b64urlEncode, b64urlDecode, readGuest, baseUrl, guestUrl, cardUrl, isLocalAddress,
     FONTS, fontsReady, esc, invites, INVITE_ACTIONS: ACTIONS, qrSvg, copyText,
   };
 })();

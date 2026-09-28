@@ -368,21 +368,50 @@
     const z = (n) => String(n).padStart(2, '0');
     return `${d.getFullYear()}${z(d.getMonth() + 1)}${z(d.getDate())}T${z(d.getHours())}${z(d.getMinutes())}00`;
   }
+  const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS reports as a Mac
+  const isAndroid = () => /Android/i.test(navigator.userAgent);
+  const utcStamp = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+
+  /* Save date: Android → Google Calendar (opens the app when it's installed),
+     iPhone / iPad → Apple Calendar's "Add event" sheet, computers → .ics file. */
   $('#calBtn').addEventListener('click', () => {
     const lang = guest.lang || cfg.lang;
     const t = Object.assign({}, cfg.text.en, cfg.text[lang]);
     const start = new Date(cfg.event.start);
     if (isNaN(start)) return;
     const end = new Date(start.getTime() + (Number(cfg.event.durationMinutes) || 180) * 60000);
+    const title = `${t.title1} ${t.title2}`;
+    const details = [t.hostsLabel, t.hosts, cfg.event.mapUrl].filter(Boolean).join(' — ');
+
+    if (isAndroid()) {
+      const g = new URL('https://calendar.google.com/calendar/render');
+      g.search = new URLSearchParams({
+        action: 'TEMPLATE', text: title, dates: `${utcStamp(start)}/${utcStamp(end)}`,
+        details, location: t.address || '',
+      }).toString();
+      // A new tab keeps the invitation open behind it; some in-app browsers block that, so fall back.
+      // ('noopener' would make window.open return null, so the opener is cut by hand.)
+      const w = window.open(g.href, '_blank');
+      if (w) w.opener = null; else location.href = g.href;
+      return;
+    }
+
     const clean = (s) => String(s || '').replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n');
     const ics = [
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//GrihaPravesam//EN', 'BEGIN:VEVENT',
       `UID:${Date.now()}@grihapravesam`, `DTSTAMP:${icsStamp(new Date())}`,
       `DTSTART:${icsStamp(start)}`, `DTEND:${icsStamp(end)}`,
-      `SUMMARY:${clean(`${t.title1} ${t.title2}`)}`, `LOCATION:${clean(t.address)}`,
-      `DESCRIPTION:${clean([t.hostsLabel, t.hosts, cfg.event.mapUrl].filter(Boolean).join(' — '))}`,
+      `SUMMARY:${clean(title)}`, `LOCATION:${clean(t.address)}`,
+      `DESCRIPTION:${clean(details)}`,
       'END:VEVENT', 'END:VCALENDAR',
     ].join('\r\n');
+    if (isIOS()) {
+      // Safari opens a text/calendar page straight in Calendar's "Add event" sheet;
+      // a downloaded .ics would only land in Files.
+      location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+      return;
+    }
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
     a.download = 'griha-pravesam.ics';

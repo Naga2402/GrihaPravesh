@@ -16,7 +16,8 @@ There is no build step or server code. It is plain HTML, CSS and JS, and all art
 
 | Page | Who uses it | What it does |
 |---|---|---|
-| `index.html` | Guests | Diya → door → invitation → details. Reads the guest name from the link. Includes Directions, Save date (.ics), Replay, music mute and the countdown. |
+| `index.html` | Guests | Diya → door → invitation → details. Reads the guest name from the link. Includes Directions, Save date (Google Calendar on Android, the Calendar "Add event" sheet on iPhone/iPad, an .ics file on computers), Replay, music mute and the countdown. |
+| `card.html` | Guests | The guest's own poster, with the QR code made **tappable**: a pulsing ring, a tapping finger and a "Tap the QR" bubble show them where to tap, and the tap shows their invitation link with an **Open** button. The QR still scans as usual (and long-press → *Scan QR code* works too). The WhatsApp message links here. |
 | `poster.html` | You (host) | Type a family name and get a **1080×1920 (9:16)** poster with their personal QR code, in **cream & gold, deep maroon or mango-leaf green**. Share it directly to WhatsApp or Instagram, download it, or copy the link. **Batch posters**: paste a list of names and get every poster in one ZIP, plus a spreadsheet of links. |
 | `config.html` | You (host) | Edit every line of text in **Telugu and English**, the date, map link and site link, the **order of the day**, the **blessings** (photo and messages), **music** and the default poster theme. Live phone preview; tap any text in it to jump to its box. |
 | `admin.html` | You (host) | Dashboard showing how many invites you've prepared and shared, a countdown, and whether the site link and text are published. Also a searchable guest table with QR, name, language, time prepared, last shared and status. You can bulk-add guests, add notes, download QR codes, export to Excel (CSV), and back up or merge the list. |
@@ -37,6 +38,8 @@ There is no build step or server code. It is plain HTML, CSS and JS, and all art
 ## Sharing on the spot
 
 Open `https://your-site/poster.html` on your phone, type the family name, choose తెలుగు or English and a theme, and tap **WhatsApp** or **Share poster**. The share sheet opens with the poster image and the invitation text; pick WhatsApp. (If WhatsApp drops the text, it is already copied, so just paste it.) **Copy link** copies the guest's link.
+
+A picture in WhatsApp can't be tapped through, so the message carries a link to `card.html`: the same poster, where the guest can tap the QR instead of scanning it.
 
 ## Guest links
 

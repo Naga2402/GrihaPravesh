@@ -6,7 +6,7 @@
   const THEME_KEY = 'gp.posterTheme';
   let theme = (() => { try { return localStorage.getItem(THEME_KEY); } catch (e) { return null; } })() || cfg.posterTheme || 'cream';
   if (!GPPoster.THEMES[theme]) theme = 'cream';
-  let current = { name: '', url: '' };
+  let current = { name: '', url: '', cardUrl: '' };
   let renderId = 0;
 
   const nameEl = $('#name');
@@ -27,8 +27,10 @@
     const greet = lang === 'te'
       ? `${current.name || t.guestFallback} గారికి, ${t.title1} ${t.title2} ఆహ్వానం 🙏`
       : `Dear ${current.name || t.guestFallback}, you're invited to our ${t.title1} ${t.title2} 🙏`;
+    const tap = lang === 'te' ? '👇 మీ పోస్టర్ చూసి, దానిపై QR ని తాకండి' : '👇 Open your poster and tap the QR on it';
     // The link sits on its own line so WhatsApp turns the whole thing into one tappable link.
-    return `${greet}\n\n${current.url}`;
+    // It opens card.html: the same poster, with the QR tappable.
+    return `${greet}\n\n${tap}\n${current.cardUrl}`;
   }
 
   function remember(name, action) {
@@ -64,6 +66,7 @@
     const id = ++renderId;
     current.name = nameEl.value.trim();
     current.url = GP.guestUrl(cfg, current.name, lang, theme);
+    current.cardUrl = GP.cardUrl(cfg, current.name, lang, theme);
 
     $('#linkBox').textContent = current.url;
     $('#openBtn').href = current.url;

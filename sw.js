@@ -6,12 +6,16 @@
  *    and code, falling back to the saved copy when offline.
  *  - Google Fonts and CDN libraries: served from the cache, refreshed in the background.
  */
-const VERSION = 'gp-v3';
+const VERSION = 'gp-v4';
 const CORE = [
   './',
   'index.html',
+  'card.html',
   'config.js',
   'assets/css/invite.css',
+  'assets/css/card.css',
+  'assets/js/poster.js',
+  'assets/js/card.js',
   'assets/js/core.js',
   'assets/js/art.js',
   'assets/js/music.js',

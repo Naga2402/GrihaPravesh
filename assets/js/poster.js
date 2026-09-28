@@ -329,6 +329,9 @@
     fitFont(ctx, t.posterScan, F.body, te ? 32 : 30, 460, '600');
     spaced(ctx, te ? t.posterScan : t.posterScan.toUpperCase(), W / 2, capY, te ? 0 : 3);
 
+    // Where the guest's QR card sits (poster pixels), so card.html can make it tappable.
+    const card = qrSize + FRAME * 2;
+    cv.qrBox = { x: W / 2 - card / 2, y: qy - card / 2, w: card, h: card };
     return cv;
   }
 
